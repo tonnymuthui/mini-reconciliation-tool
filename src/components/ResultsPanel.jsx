@@ -7,7 +7,7 @@ import "./css/ResultsPanel.css";
 
 const ResultsPanel = ({ result }) => {
   const handleExport = (rows, label) => {
-    const csv = Papa.unparse(rows);    // ⬅ convert JSON → CSV
+    const csv = Papa.unparse(rows);    //  this is to convert JSON → CSV, probably..
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     saveAs(blob, `${label}.csv`);
   };

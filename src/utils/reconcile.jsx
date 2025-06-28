@@ -1,5 +1,3 @@
-// reconciliation logic belo
-
 export function reconcile(internal, provider) {
     const iMap = new Map(internal.map(tx => [tx.transaction_reference, tx]));
     const pMap = new Map(provider.map(tx => [tx.transaction_reference, tx]));
