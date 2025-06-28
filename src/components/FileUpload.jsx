@@ -1,6 +1,6 @@
 import React from "react";
 import Papa from "papaparse";
-import "./css/FileUpload.css";
+import "./css/FIleUpload.css";
 
 const FileUpload = ({ label, onLoad}) => {
     const handleChange = (e) => {
