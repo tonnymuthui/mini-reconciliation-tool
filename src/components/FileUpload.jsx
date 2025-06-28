@@ -1,6 +1,6 @@
 import React from "react";
 import Papa from "papaparse";
-import "./FileUpload.css";
+import "./css/FileUpload.css";
 
 const FileUpload = ({ label, onLoad}) => {
     const handleChange = (e) => {
@@ -11,8 +11,10 @@ const FileUpload = ({ label, onLoad}) => {
         Papa.parse(file, {
             header: true,
             skipEmptyLines: true,
-            compelete: (result) => {
-                onLoad(result.data);
+            complete: (result) => {
+                const rows = result.data.filter(r => r.transaction_reference);
+                console.log(label, "rows loaded:", rows.length);
+                onLoad(rows);
             },
             error: (err) => {
                 alert("CSV parsing error: " + err.message);

@@ -1,0 +1,328 @@
+.results-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* eah individual Result Section */
+.results-panel .section {
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: sectionSlideIn 0.6s ease-out both;
+}
+
+@keyframes sectionSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Staggering animation 4 sects */
+.results-panel .section:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.results-panel .section:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.results-panel .section:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* Top border indicator */
+.results-panel .section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 20px 20px 0 0;
+}
+
+
+.results-panel .section:has(h2[data-type="matched"])::before {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+
+.results-panel .section:has(h2[data-type="internal"])::before {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+
+.results-panel .section:has(h2[data-type="provider"])::before {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.results-panel .section:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+
+.results-panel h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+  animation: headerSlideIn 0.5s ease-out 0.3s both;
+}
+
+@keyframes headerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.results-panel h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.3), transparent);
+  margin-left: 1rem;
+}
+
+/* Export Button */
+.results-panel button {
+  padding: 0.875rem 1.75rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px -2px rgba(16, 185, 129, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: buttonSlideIn 0.5s ease-out 0.4s both;
+}
+
+@keyframes buttonSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.results-panel button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #059669, #047857);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.results-panel button::after {
+  content: '📊';
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.results-panel button:hover::before {
+  opacity: 1;
+}
+
+.results-panel button:hover::after {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.results-panel button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
+}
+
+.results-panel button:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+.results-panel button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading state for export button */
+.results-panel button.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.results-panel button.loading::after {
+  content: '⏳';
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* Empty State */
+.results-panel .empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #6b7280;
+  font-size: 1.1rem;
+  background: linear-gradient(145deg, #f9fafb, #f3f4f6);
+  border-radius: 16px;
+  border: 2px dashed #d1d5db;
+  margin: 1rem 0;
+  animation: emptyFadeIn 0.5s ease-out;
+}
+
+@keyframes emptyFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.results-panel .empty-state::before {
+  content: '📝';
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Section Count Badge */
+.results-panel h2 .count-badge {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  animation: badgePopIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.6s both;
+}
+
+@keyframes badgePopIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .results-panel {
+    gap: 2rem;
+  }
+  
+  .results-panel .section {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .results-panel h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    gap: 0.5rem;
+  }
+  
+  .results-panel h2::after {
+    margin-left: 0.75rem;
+  }
+  
+  .results-panel button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+    width: 100%;
+  }
+  
+  .results-panel .empty-state {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .results-panel {
+    gap: 1.5rem;
+  }
+  
+  .results-panel .section {
+    padding: 1rem;
+  }
+  
+  .results-panel h2 {
+    font-size: 1.125rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .results-panel h2::after {
+    display: none;
+  }
+  
+  .results-panel button {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
