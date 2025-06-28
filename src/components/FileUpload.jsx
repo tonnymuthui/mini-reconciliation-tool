@@ -12,6 +12,7 @@ const FileUpload = ({ label, onLoad}) => {
             header: true,
             skipEmptyLines: true,
             complete: (result) => {
+                console.log("⚙️  First raw row:", result.data[0]);
                 const rows = result.data.filter(r => r.transaction_reference);
                 console.log(label, "rows loaded:", rows.length);
                 onLoad(rows);
